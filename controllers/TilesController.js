@@ -6,6 +6,6 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
     $scope.showTile = function(tile) {
         tile.show = true;
         console.log(tile);
-    }
+    };
 
 });
