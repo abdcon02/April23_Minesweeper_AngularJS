@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='en' ng-app='mineSweeper'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Minesweeper</title>
+        <script src='lib/angular.js'></script>
+        <script src='app.js'></script>
+        <script src='controllers/TilesController.js'></script>
+        <script src='services/TilesFactory.js'></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-6'>
+                    <div ng-controller='TilesCtrl'>
+                        <div ng-repeat='item in tiles'>
+                            <p>{{ item.id}}<p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
