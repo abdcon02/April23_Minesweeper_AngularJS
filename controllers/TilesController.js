@@ -1,5 +1,12 @@
 mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
     $scope.tiles = TilesFactory.tiles;
-    console.log($scope.tiles);
+
+    $scope.rowLength = TilesFactory.rowLength;
+
+    console.log($scope.rowLength);
+
+    $scope.showObject = function(tile) {
+        console.log(tile);
+    }
 
 });

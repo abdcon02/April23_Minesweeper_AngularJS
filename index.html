@@ -7,15 +7,17 @@
         <script src='app.js'></script>
         <script src='controllers/TilesController.js'></script>
         <script src='services/TilesFactory.js'></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
         <div class='container'>
             <div class='row'>
                 <div class='col-md-6'>
-                    <div ng-controller='TilesCtrl'>
-                        <div ng-repeat='item in tiles'>
-                            <p>{{ item.id}}<p>
+                    <div class="row" ng-controller='TilesCtrl'>
+
+                        <div class="tile-container">
+                            <span ng-repeat="item in tiles" class="tile" ng-click='showObject(item)'>{{ item.id}}</span>
                         </div>
                     </div>
                 </div>

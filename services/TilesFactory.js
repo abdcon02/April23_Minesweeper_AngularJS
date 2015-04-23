@@ -1,12 +1,13 @@
 mineSweeper.factory('TilesFactory', function TilesFactory() {
     var factory = {};
     factory.tiles = [];
-    rowLength = 4;
+    factory.rowLength = 4;
+    var tileNumber = 0;
 
-    for (var tileNumber = 15; tileNumber >= 0; tileNumber --){
+    for (tileNumber; tileNumber <= 15; tileNumber++){
 
-        var colVal = (tileNumber % rowLength) + 1;
-        var rowVal = Math.floor(tileNumber / rowLength) + 1;
+        var colVal = (tileNumber % factory.rowLength) + 1;
+        var rowVal = Math.floor(tileNumber / factory.rowLength) + 1;
 
         var tile = { bomb: false,
                      show: false,
