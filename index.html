@@ -15,6 +15,7 @@
     <div class='row'>
       <div class='col-md-6'>
         <div class="row" ng-controller='TilesCtrl'>
+          <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
 
           <div ng-style="tileContainer">
             <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)'>

@@ -1,18 +1,28 @@
 mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
-    $scope.tiles = TilesFactory.tiles;
 
-    $scope.tileContainer = {
-        "width": TilesFactory.rowLength * 20 + "px",
-        "height": TilesFactory.rowLength * 20 + "px",
-        "margin": "0 auto"
-    };
+    $scope.difficulty = 0.15;
 
-    $scope.rowLength = TilesFactory.rowLength;
+    $scope.tileContainer = {};
+
+
 
     $scope.showTile = function(tile) {
 
       tile.show = true;
       console.log(tile);
     };
+
+    $scope.startGame = function() {
+      TilesFactory.createBoard(4, 4);
+      TilesFactory.makeBombs($scope.difficulty);
+      TilesFactory.createNeighborsAndClues();
+      $scope.tiles = TilesFactory.tiles;
+
+      $scope.tileContainer = {
+          "width": TilesFactory.rowLength * 20 + "px",
+          "height": TilesFactory.rowLength * 20 + "px",
+          "margin": "0 auto"
+      };
+    }
 
 });
