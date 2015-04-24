@@ -3,18 +3,20 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
   factory.tiles = [];
   factory.tileNumber = 0;
   factory.rowLength = 0;
+  factory.colLength = 0;
 
   // Generate some unique random numbers so we can assign bombs to random tiles
-  factory.createBoard = function(rowLength, height) {
+  factory.createBoard = function(width, height) {
 
     factory.tiles = [];
-    factory.rowLength = rowLength;
-    factory.tileNumber = rowLength * height;
+    factory.rowLength = height;
+    factory.colLength = width;
+    factory.tileNumber = width * height;
 
     // Create tileNumber amount of tiles
     for (var i = 0; i < factory.tileNumber; i++) {
-      var colVal = (i % rowLength) + 1;
-      var rowVal = Math.floor(i / rowLength) + 1;
+      var colVal = (i % width) + 1;
+      var rowVal = Math.floor(i / width) + 1;
 
       var tile = {
         bomb: false,
@@ -81,7 +83,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
         }
 
         //check for a column to the right
-        if(tile.col + 1 !== 5) {
+        if(tile.col + 1 !== factory.colLength + 1) {
           tile.neighbors.push(arr[index - factory.rowLength + 1]);
           //if it exists check for a bomb
           if(arr[index - factory.rowLength + 1].bomb) {
@@ -90,7 +92,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
         }
       }
       //if we have a row below us
-      if(tile.row + 1 !== 5) {
+      if(tile.row + 1 !== factory.rowLength + 1) {
         tile.neighbors.push(arr[index + factory.rowLength]);
         //we know the one below us exists so check for bomb
         if(arr[index + factory.rowLength].bomb) {
@@ -105,7 +107,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
           }
         }
         //check for col below right
-        if(tile.col + 1 !== 5) {
+        if(tile.col + 1 !== factory.colLength + 1) {
           tile.neighbors.push(arr[index + factory.rowLength + 1]);
           if(arr[index + factory.rowLength + 1].bomb) {
             tile.clue++;
@@ -121,7 +123,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
         }
       }
       //if col is to the right
-      if(tile.col + 1 !== 5) {
+      if(tile.col + 1 !== factory.colLength + 1) {
         tile.neighbors.push(arr[index + 1]);
         //we have col to the right
         if(arr[index + 1].bomb) {

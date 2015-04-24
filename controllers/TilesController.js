@@ -13,7 +13,7 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
     };
 
     $scope.startGame = function() {
-      TilesFactory.createBoard(4, 4);
+      TilesFactory.createBoard(10, 10);
       TilesFactory.makeBombs($scope.difficulty);
       TilesFactory.createNeighborsAndClues();
       $scope.tiles = TilesFactory.tiles;
