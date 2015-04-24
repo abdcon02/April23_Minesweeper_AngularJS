@@ -5,19 +5,34 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
     $scope.tileContainer = {};
 
     $scope.showTile = function(tile) {
+      // first check if tile clicked is a bomb
       if(tile.bomb){
-      tile.show = true;
-        alert("LOSER");
-      }
-      if(tile.clue === 0 && tile.show === false){
+        //show it and end the game
         tile.show = true;
-        $scope.openNeighbors(tile);
+        alert("LOSER");
+
+      } else { //if not a bomb
+
+        //check if the tile is 0 and it isn't showing
+        if (tile.clue === 0 && tile.show === false){
+
+          //show it and show it's neighbors that haven't been shown yet
+          tile.show = true;
+          $scope.openNeighbors(tile);
+
+        } else { //if it's not 0 just show the tile
+          tile.show = true;
+        }
       }
       console.log(tile);
     };
 
+    $scope.hi = function() {
+      alert("Hi!");
+    };
+
     $scope.startGame = function() {
-      TilesFactory.createBoard(6, 6);
+      TilesFactory.createBoard(10, 10);
       TilesFactory.makeBombs($scope.difficulty);
       TilesFactory.createNeighborsAndClues();
       $scope.tiles = TilesFactory.tiles;

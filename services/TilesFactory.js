@@ -21,6 +21,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
       var tile = {
         bomb: false,
         show: false,
+        flagged: false,
         clue: 0,
         id: i,
         col: colVal,
