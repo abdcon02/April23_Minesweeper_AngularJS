@@ -16,10 +16,10 @@
       <div class='col-md-6'>
         <div class="row" ng-controller='TilesCtrl'>
 
-          <div class="tile-container">
+          <div ng-style="tileContainer">
             <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)'>
-              <span ng-show="item.show">{{item.bomb}}</span>
-              <span ng-hide="item.show" class="tile__hidden">{{item.bomb}}</span>
+              <span ng-show="item.show">{{item.clue}}</span>
+              <span ng-hide="item.show" class="tile__hidden">{{item.clue}}</span>
             </span>
           </div>
         </div>
