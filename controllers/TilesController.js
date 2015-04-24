@@ -2,8 +2,8 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
     $scope.tiles = TilesFactory.tiles;
 
     $scope.tileContainer = {
-        "width": "80px",
-        "height": "80px",
+        "width": TilesFactory.rowLength * 20 + "px",
+        "height": TilesFactory.rowLength * 20 + "px",
         "margin": "0 auto"
     };
 
