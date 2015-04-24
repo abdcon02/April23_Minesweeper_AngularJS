@@ -56,7 +56,6 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
     for(var i = 0; i < randomNumbers.length; i++) {
       factory.tiles[randomNumbers[i]].bomb = true;
     }
-    console.log(randomNumbers);
   };
 
   // set the clue number based on surrounding bombs
@@ -101,7 +100,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
 
         //check for column below to the left
         if(tile.col - 1 !== 0) {
-          tile.neighbors.push(arr[index - factory.rowLength - 1]);
+          tile.neighbors.push(arr[index + factory.rowLength - 1]);
           if(arr[index + factory.rowLength - 1].bomb) {
             tile.clue++;
           }
@@ -134,9 +133,14 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
     });
 
     this.tiles.forEach(function(tile) {
+      if(tile.clue === 0) {
+        // tile.clue = ;
+      }
+
       if(tile.bomb) {
         tile.clue = 'B';
       }
+
     });
 
   };

@@ -18,8 +18,8 @@
           <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
 
           <div ng-style="tileContainer">
-            <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)'>
-              <span ng-show="item.show">{{item.clue}}</span>
+            <span ng-repeat="item in tiles" class="tile"ng-click='showTile(item)'>
+              <span ng-show="item.show" class="tile__show">{{item.clue}}</span>
               <span ng-hide="item.show" class="tile__hidden">{{item.clue}}</span>
             </span>
           </div>
