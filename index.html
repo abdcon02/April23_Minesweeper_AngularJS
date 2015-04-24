@@ -7,7 +7,6 @@
   <script src='app.js'></script>
   <script src='controllers/TilesController.js'></script>
   <script src='services/TilesFactory.js'></script>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -16,12 +15,15 @@
       <div class='col-md-6'>
         <div class="row" ng-controller='TilesCtrl'>
           <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
-          <button ng-right-click="hi()">Hi</button>
+
+          <p>
+            
+          </p>
 
           <div ng-style="tileContainer">
-            <span ng-repeat="item in tiles" class="tile"ng-click='showTile(item)'>
+            <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)' ng-right-click='flagTile(item)'>
               <span ng-show="item.show" class="tile__show">{{item.clue}}</span>
-              <span ng-hide="item.show" class="tile__hidden">{{item.clue}}</span>
+              <span ng-show="item.flagged && !item.show" class="tile__flagged">X</span>
             </span>
           </div>
         </div>
