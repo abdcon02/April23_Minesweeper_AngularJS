@@ -2,18 +2,58 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
 
     $scope.difficulty = 0.15;
     $scope.gameOver = false;
+    $scope.won = false;
     $scope.timeElapsed = 0;
 
+    $scope.endGameStyles = {
+      "visibility": "hidden",
+      "text-align": "center"
+    };
+    $scope.endGameText = "Game Over!"
+
+    //holds the dynamic styles of the minesweeper playing field
     $scope.tileContainer = {};
 
+    $scope.startGame = function() {
+      $scope.gameOver = false;
+      $scope.won = false;
+      $scope.timeElapsed = 0;
+
+      $scope.endGameStyles = {
+        "visibility": "hidden",
+      };
+
+      TilesFactory.createBoard(4, 4);
+      TilesFactory.makeBombs($scope.difficulty);
+      TilesFactory.createNeighborsAndClues();
+      $scope.tiles = TilesFactory.tiles;
+      $scope.bombNumber = TilesFactory.bombNumber;
+      $scope.totalShow = TilesFactory.tileNumber;
+
+      $scope.tileContainer = {
+          "width": TilesFactory.colLength * 20 + "px",
+          "height": TilesFactory.rowLength * 20 + "px",
+          "margin": "0 auto",
+          "border": "2px solid black",
+      };
+
+      //check if timer is defined
+      if(angular.isDefined($scope.timer)) {
+        $interval.cancel($scope.timer);
+        $scope.timer = undefined;
+      }
+      //start the timer
+      $scope.timer = $interval(function() {$scope.timeElapsed++;}, 1000);
+
+    };
 
     $scope.showTile = function(tile) {
 
       //is the game not over and is the tile not flagged as a bomb
-      if(!$scope.gameOver && !tile.flagged) {
+      if(!$scope.gameOver && !$scope.won && !tile.flagged) {
         // first check if tile clicked is a bomb
         if(tile.bomb){
-          //show it and every other bomb and end the game
+          //show every bomb and end the game
           $scope.endGame();
 
         } else { //if not a bomb
@@ -38,13 +78,23 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
             tile.show = true;
             $scope.totalShow--;
           }
+
+          //did we win?
+          if($scope.isGameWon()) {
+            $scope.winGame();
+          }
         }
-        console.log(tile);
       }
     };
 
+    $scope.openNeighbors = function(tile){
+      tile.neighbors.forEach(function(neighbor) {
+        $scope.showTile(neighbor);
+      });
+    };
+
     $scope.flagTile = function(tile) {
-      if(!$scope.gameOver) {
+      if(!$scope.gameOver && !$scope.won) {
 
         if(tile.flagged) {
           tile.flagged = false;
@@ -54,45 +104,20 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
           $scope.bombNumber--;
         }
 
-        console.log(tile.flagged);
       }
     };
 
-    $scope.startGame = function() {
-      $scope.gameOver = false;
-      $scope.timeElapsed = 0;
-      TilesFactory.createBoard(10, 10);
-      TilesFactory.makeBombs($scope.difficulty);
-      TilesFactory.createNeighborsAndClues();
-      $scope.tiles = TilesFactory.tiles;
-      $scope.bombNumber = TilesFactory.bombNumber;
-      $scope.totalShow = TilesFactory.tileNumber;
-
-      console.log($scope.totalShow);
-
-      $scope.tileContainer = {
-          "width": TilesFactory.colLength * 20 + "px",
-          "height": TilesFactory.rowLength * 20 + "px",
-          "margin": "0 auto",
-          "border": "2px solid black",
+    $scope.winGame = function() {
+      $scope.won = true;
+      $scope.endGameText = "Winner!"
+      $scope.endGameStyles = {
+        "visibility" : "visible",
+        "color" : "#39CC3E",
+        "text-align": "center",
       };
-
-      //check if timer is defined
-      if(angular.isDefined($scope.timer)) {
-        $interval.cancel($scope.timer);
-        $scope.timer = undefined;
-      }
-      //start the timer
-      $scope.timer = $interval(function() {$scope.timeElapsed++;}, 1000);
-
     };
 
-    $scope.openNeighbors = function(tile){
-      tile.neighbors.forEach(function(neighbor) {
-        $scope.showTile(neighbor);
-      });
-    };
-
+    //ends the game and shows all the bombs
     $scope.endGame = function() {
       $scope.gameOver = true;
       $scope.tiles.forEach(function(tile) {
@@ -100,10 +125,23 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
           tile.show = true;
         };
       });
+      $scope.endGameText = "Game Over!";
+      $scope.endGameStyles = {
+        "visibility": "visible",
+        "color": "#D42222",
+        "text-align": "center",
+      };
     };
 
+    //used to determine styling of bomb tiles
     $scope.isGameOver = function(item) {
       if($scope.gameOver && item.bomb) {
+        return true;
+      }
+    };
+
+    $scope.isGameWon = function() {
+      if($scope.totalShow === TilesFactory.bombNumber) {
         return true;
       }
     };

@@ -49,7 +49,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
     //stores our bomb numbers
     var randomNumbers = [];
     //find our total bombNumber
-    factory.bombNumber = this.tileNumber * difficulty;
+    factory.bombNumber = Math.round(this.tileNumber * difficulty);
 
     //keep adding numbers until the array's length is > difficulty level
     while(randomNumbers.length < Math.round((factory.bombNumber)))
