@@ -1,3 +1,16 @@
+header h1 {
+  text-align: center;
+  margin: 0;
+}
+
+header {
+  padding: 40px 0;
+  background-color: #333;
+  color: snow;
+  text-shadow: 1px 1px 3px black;
+  margin-bottom: 25px;
+}
+
 
 .tile {
     display: inline-block;
@@ -10,6 +23,10 @@
     background-color: #777;
     color: black;
     cursor: default;
+}
+
+.tile:hover {
+  background-color: #39CC3E;
 }
 
 .tile__show {

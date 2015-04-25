@@ -7,25 +7,38 @@
   <script src='app.js'></script>
   <script src='controllers/TilesController.js'></script>
   <script src='services/TilesFactory.js'></script>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+
+  <header>
+    <h1>Play Minesweeper</h1>
+  </header>
+
   <div class='container'>
-    <div class='row'>
-      <div class='col-md-6'>
-        <div class="row" ng-controller='TilesCtrl'>
-          <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
+    <div class="row" ng-controller='TilesCtrl'>
+      <div class="twelve columns">
+        <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
 
-          <p>
-            {{totalShow}}
-          </p>
+        <p>
+          Total Tiles Remaining: {{totalShow}}
+        </p>
+        <p>
+          Total Bombs: {{ bombNumber }}
+        </p>
+        <p>
+          Time: {{ timeElapsed }}
+        </p>
+      </div>
 
-          <div ng-style="tileContainer">
-            <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)' ng-right-click='flagTile(item)'>
-              <span ng-show="item.show" class="tile__show">{{item.clue}}</span>
-              <span ng-show="item.flagged && !item.show" class="tile__flagged">X</span>
-            </span>
-          </div>
+      <div class="twelve columns">
+        <div ng-style="tileContainer">
+          <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)' ng-right-click='flagTile(item)'>
+            <span ng-show="item.show" class="tile__show">{{item.clue}}</span>
+            <span ng-show="item.flagged && !item.show" class="tile__flagged">X</span>
+          </span>
         </div>
       </div>
     </div>
