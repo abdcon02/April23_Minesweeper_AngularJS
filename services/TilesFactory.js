@@ -4,6 +4,7 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
   factory.tileNumber = 0;
   factory.rowLength = 0;
   factory.colLength = 0;
+  factory.bombNumber = 0;
 
   // Generate some unique random numbers so we can assign bombs to random tiles
   factory.createBoard = function(width, height) {
@@ -36,9 +37,11 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
 
     //stores our bomb numbers
     var randomNumbers = [];
+    //find our total bombNumber
+    factory.bombNumber = this.tileNumber * difficulty;
 
     //keep adding numbers until the array's length is > difficulty level
-    while(randomNumbers.length < Math.round((this.tileNumber * difficulty)))
+    while(randomNumbers.length < Math.round((factory.bombNumber)))
     {
       //create a random number between 0 and tileNumber
       var randomnumber = Math.floor(Math.random() * factory.tileNumber);

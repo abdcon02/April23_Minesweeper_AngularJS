@@ -5,6 +5,7 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
 
     $scope.tileContainer = {};
 
+
     $scope.showTile = function(tile) {
 
       if(!$scope.gameOver && !tile.flagged) {
@@ -16,15 +17,25 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
 
         } else { //if not a bomb
 
+          var count = 0;
+          //recalculate our bombs shown
+          $scope.tiles.forEach(function(tile) {
+            if(!tile.show) {
+              count++;
+            }
+          });
+          $scope.totalShow = count;
           //check if the tile is 0 and it isn't showing
           if (tile.clue === 0 && tile.show === false){
 
             //show it and show it's neighbors that haven't been shown yet
             tile.show = true;
+            $scope.totalShow--;
             $scope.openNeighbors(tile);
 
           } else { //if it's not 0 just show the tile
             tile.show = true;
+            $scope.totalShow--;
           }
         }
         console.log(tile);
@@ -44,10 +55,14 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
       TilesFactory.makeBombs($scope.difficulty);
       TilesFactory.createNeighborsAndClues();
       $scope.tiles = TilesFactory.tiles;
+      // $scope.bombNumber = TilesFactory.bombNumber;
+      $scope.totalShow = TilesFactory.tileNumber;
+
+      console.log($scope.totalShow);
 
       $scope.tileContainer = {
-          "width": TilesFactory.colLength * 20 + "px",
-          "height": TilesFactory.rowLength * 20 + "px",
+          "width": TilesFactory.colLength * 19.334 + "px",
+          "height": TilesFactory.rowLength * 19.334 + "px",
           "margin": "0 auto",
           "border": "2px solid red",
       };
@@ -67,5 +82,7 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, TilesFactory) {
         };
       });
     };
+
+
 
 });
