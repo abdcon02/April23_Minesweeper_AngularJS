@@ -39,3 +39,16 @@ header {
 .tile__flagged {
   color: red;
 }
+
+.game-over {
+  text-align: center;
+  color: #D42222;
+}
+
+.bomb-background {
+  background-color: #D42222;
+}
+
+.invisible {
+  visibility: hidden;
+}

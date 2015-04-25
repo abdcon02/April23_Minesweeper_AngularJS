@@ -19,24 +19,37 @@
 
   <div class='container'>
     <div class="row" ng-controller='TilesCtrl'>
-      <div class="twelve columns">
-        <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
 
+      <div class="three columns">
+        <button ng-click="startGame()" class="btn btn-success"><b>Start Game</b></button>
+      </div>
+
+      <div class="three columns">
         <p>
           Total Tiles Remaining: {{totalShow}}
         </p>
+      </div>
+
+      <div class="three columns">
         <p>
           Total Bombs: {{ bombNumber }}
         </p>
+      </div>
+      <div class="three columns">
         <p>
           Time: {{ timeElapsed }}
         </p>
       </div>
 
+      <div ng-class="{invisible : !gameOver}" class="twelve columns">
+        <h3 class="game-over">Game Over!</h3>
+
+      </div>
+
       <div class="twelve columns">
         <div ng-style="tileContainer">
           <span ng-repeat="item in tiles" class="tile" ng-click='showTile(item)' ng-right-click='flagTile(item)'>
-            <span ng-show="item.show" class="tile__show">{{item.clue}}</span>
+            <span ng-show="item.show" ng-class="{'bomb-background' : isGameOver(item)}" class="tile__show">{{item.display()}}</span>
             <span ng-show="item.flagged && !item.show" class="tile__flagged">X</span>
           </span>
         </div>

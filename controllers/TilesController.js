@@ -9,11 +9,11 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
 
     $scope.showTile = function(tile) {
 
+      //is the game not over and is the tile not flagged as a bomb
       if(!$scope.gameOver && !tile.flagged) {
         // first check if tile clicked is a bomb
         if(tile.bomb){
           //show it and every other bomb and end the game
-
           $scope.endGame();
 
         } else { //if not a bomb
@@ -83,7 +83,7 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
         $scope.timer = undefined;
       }
       //start the timer
-      $scope.timer = $interval($scope.countTime, 1000);
+      $scope.timer = $interval(function() {$scope.timeElapsed++;}, 1000);
 
     };
 
@@ -102,9 +102,10 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
       });
     };
 
-    $scope.countTime = function() {
-      $scope.timeElapsed++;
-      console.log($scope.timeElapsed);
-    }
+    $scope.isGameOver = function(item) {
+      if($scope.gameOver && item.bomb) {
+        return true;
+      }
+    };
 
 });

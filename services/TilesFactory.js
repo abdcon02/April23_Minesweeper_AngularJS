@@ -28,6 +28,17 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
         col: colVal,
         row: rowVal,
         neighbors: [],
+        display: function() {
+          if(this.bomb) {
+            return "B";
+          }
+          else if(this.clue === 0) {
+            return " ";
+          }
+          else {
+            return this.clue;
+          }
+        }
       };
       factory.tiles.push(tile);
     }
@@ -135,18 +146,6 @@ mineSweeper.factory('TilesFactory', function TilesFactory() {
       }
 
     });
-
-    this.tiles.forEach(function(tile) {
-      if(tile.clue === 0) {
-        // tile.clue = ;
-      }
-
-      if(tile.bomb) {
-        tile.clue = 'B';
-      }
-
-    });
-
   };
 
 
