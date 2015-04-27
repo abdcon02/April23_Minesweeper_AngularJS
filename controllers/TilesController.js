@@ -115,6 +115,8 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
         "color" : "#39CC3E",
         "text-align": "center",
       };
+
+      $interval.cancel($scope.timer);
     };
 
     //ends the game and shows all the bombs
@@ -131,6 +133,8 @@ mineSweeper.controller('TilesCtrl', function TilesCtrl($scope, $interval, TilesF
         "color": "#D42222",
         "text-align": "center",
       };
+      // stop the timer
+      $interval.cancel($scope.timer);
     };
 
     //used to determine styling of bomb tiles
